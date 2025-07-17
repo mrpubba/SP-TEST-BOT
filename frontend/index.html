@@ -1,0 +1,296 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dew-MD - Deploy WhatsApp Bot</title>
+  <meta name="description" content="Easily deploy your WhatsApp bots with Dew-MD in one click using PM2 automation." />
+  <meta name="keywords" content="WhatsApp bot, auto deploy bot, Dew-MD, PM2 bots, bot creator, Hansa Dewmina, deploy WhatsApp bot" />
+  <meta name="author" content="Hansa Dewmina" />
+  <meta property="og:title" content="Dew-MD - Deploy WhatsApp Bots" />
+  <meta property="og:description" content="Deploy your WhatsApp bots in one click with Dew-MD - Powered by Hansa Dewmina." />
+  <meta property="og:image" content="https://dewcoders.pages.dev/favicon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://dewcoders.pages.dev" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dew-MD - Deploy WhatsApp Bots" />
+  <meta name="twitter:description" content="Deploy WhatsApp bots instantly with our smart automation system." />
+  <meta name="twitter:image" content="https://dewcoders.pages.dev/favicon.png" />
+  <link rel="canonical" href="https://dewcoders.pages.dev" />
+  <link rel="icon" type="image/png" href="https://dewcoders.pages.dev/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" crossorigin="anonymous"></script>
+<style>
+  :root {
+    --primary: #25D366;
+    --primary-dark: #128C7E;
+    --secondary: #075E54;
+    --white: #ffffff;
+    --gray-50: #f0f2f5;
+    --gray-900: #111827;
+  }
+
+  @media (max-width: 640px) {
+  #commentForm {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  #commentForm input,
+  #commentForm button {
+    width: 90% !important;
+    max-width: 400px;
+  }
+
+  #commentForm button {
+    justify-content: center;
+  }
+}
+</style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-white py-6 shadow-md">
+    <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-3xl font-extrabold tracking-wide">DEW-MD</h1>
+      <nav class="space-x-4 text-sm" id="navButtons"></nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-white py-16 px-6 text-center shadow-md max-w-4xl mx-auto rounded-lg mt-12">
+    <h2 class="text-4xl font-extrabold text-[var(--primary-dark)] mb-6">Deploy You Own Whatsapp Bot</h2>
+    <p class="text-lg text-gray-700 mb-8 max-w-xl mx-auto">
+      If you are a first-time WhatsApp bot creator, click the Pair Bot button. Click the Settings button to configure your bot's settings.<br><br>
+      මුලින්ම Whatsapp බොට් හදන කෙනෙක්නම් Pair Bot බටන් එක ඔබන්න. ඔබෙ බොට්ගේ Setting සාදාගැනීමට Setting බටන් එක ඔබන්න 
+    </p>
+    <div class="flex flex-col sm:flex-row sm:justify-center sm:space-x-6 space-y-4 sm:space-y-0">
+      <a href="/pair" class="bg-white text-[var(--primary-dark)] border-2 border-[var(--primary)] hover:bg-[var(--primary)] hover:text-white px-8 py-3 rounded-full font-semibold shadow-md transition">🔗 Pair Bot</a>
+      <a href="/login" class="bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white px-8 py-3 rounded-full font-semibold shadow-md transition">🚀 Bot Setting</a>
+      <a href="https://whatsapp.com/channel/0029Vb2bFCq0LKZGEl4xEe2G" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-semibold shadow-md transition">📱 WhatsApp Group</a>
+    </div>
+    <p id="botCount" class="mt-8 text-lg font-medium text-[var(--primary-dark)]">Loading deployed bots...</p>
+  </section>
+
+  <!-- Download APK Section -->
+  <section class="max-w-3xl mx-auto bg-white shadow-md p-8 mt-20 rounded-2xl text-center">
+    <h3 class="text-2xl font-bold mb-4 text-[var(--primary-dark)]">If You Have Sesion ID</h3>
+      <p class="mb-6 text-gray-700">
+      If You Have Alredy Pair You Can Deploy Using Sesion ID <br>
+      ඔයා ලග කලින් ගත්ත සෙසන් අයිඩී එකක් තියෙනවනම් මෙතනින් යන්න
+      </p>
+    <a href="/deploy"
+      class="inline-block bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white px-8 py-3 rounded-full font-semibold shadow-md transition">
+      Deploy Now
+    </a>
+  </section>
+
+    <!-- Download APK Section -->
+  <section class="max-w-3xl mx-auto bg-white shadow-md p-8 mt-20 rounded-2xl text-center">
+    <h3 class="text-2xl font-bold mb-4 text-[var(--primary-dark)]">Download Our APK</h3>
+      <p class="mb-6 text-gray-700">
+      Get the latest version of our WhatsApp Bot Deployment app and deploy bots on the go.<br>
+      උපරිම සේවාවක් ලබා ගැනීමට අපගේ WhatsApp Bot App එක සමග සම්බන්ද වී සිටින්න.
+      </p>
+    <a href="https://dew-md-data.pages.dev/DATA-BASE/android/Dew-Android.apk" download
+      class="inline-block bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white px-8 py-3 rounded-full font-semibold shadow-md transition">
+      Download APK
+    </a>
+  </section>
+
+  
+  <!-- Comment Section -->
+  <section class="max-w-3xl mx-auto bg-white shadow-lg p-8 mt-16 rounded-2xl flex flex-col">
+    <h3 class="text-3xl font-extrabold text-[var(--primary-dark)] mb-6">Leave a Comment</h3>
+    <ul id="commentList" class="flex flex-col space-y-4 overflow-auto max-h-[420px] mb-6"></ul>
+    <button id="loadMoreBtn" class="self-center text-[var(--primary)] font-semibold hover:underline mb-6 hidden">See More</button>
+
+    <!-- Input -->
+    <form id="commentForm" class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-4 sm:space-y-0 justify-center items-center w-full">
+  <input
+    id="username"
+    placeholder="Enter your name"
+    class="rounded-full border border-gray-300 px-5 py-3 focus:outline-none focus:ring-4 focus:ring-[var(--primary)] w-full sm:w-[300px]"
+    required
+  />
+  <input
+    id="message"
+    type="text"
+    placeholder="Type a message"
+    class="rounded-full border border-gray-300 px-5 py-3 focus:outline-none focus:ring-4 focus:ring-[var(--primary)] w-full sm:w-[300px]"
+    disabled
+    required
+  />
+  <button
+    type="submit"
+    class="bg-[var(--primary)] hover:bg-[var(--primary-dark)] disabled:bg-green-300 rounded-full p-3 flex items-center justify-center transition disabled:cursor-not-allowed shadow w-12 h-12"
+    disabled
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" class="h-6 w-6">
+      <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+    </svg>
+  </button>
+</form>
+  </section>
+
+  <!-- Coder Profile Section -->
+  <section class="max-w-3xl mx-auto bg-white shadow-md p-8 mt-20 rounded-2xl text-center">
+    <img src="https://dewcoders.pages.dev/assets/hansa-dewmina.jpeg" alt="Hansa Dewmina" class="w-28 h-28 rounded-full mx-auto shadow-md border-4 border-[var(--primary)]">
+    <h3 class="text-2xl font-bold mt-4 text-[var(--primary-dark)]">Hansa Dewmina</h3>
+    <p class="text-gray-700">Full Stack Developer | Bot Creator | Founder of Dew Coders LK</p>
+    <div class="flex justify-center space-x-6 mt-4 text-xl">
+      <a href="https://github.com/hansa-dewmina" target="_blank" title="GitHub" class="hover:text-[var(--primary-dark)]"><i class="fab fa-github"></i></a>
+      <a href="https://wa.me/94701515609" target="_blank" title="WhatsApp" class="hover:text-[var(--primary-dark)]"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://linkedin.com/in/hansadewmina" target="_blank" title="LinkedIn" class="hover:text-[var(--primary-dark)]"><i class="fab fa-linkedin"></i></a>
+      <a href="mailto:hansadewminalk@gmail.com" title="Email" class="hover:text-[var(--primary-dark)]"><i class="fas fa-envelope"></i></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-white py-8 mt-20 text-center rounded-t-lg shadow-inner">
+    <p class="text-sm">&copy; <span id="year"></span> | Dew-MD by Hansa Dewmina - Dew Coders LK</p>
+    <p class="text-xs mt-1 mb-4">Made for All Whatsapp Users In World</p>
+    <div class="flex justify-center space-x-6 text-2xl mt-4">
+      <a href="https://github.com/hansa-dewmina" target="_blank" title="GitHub" class="hover:text-gray-300"><i class="fab fa-github"></i></a>
+      <a href="https://wa.me/94701515609" target="_blank" title="WhatsApp" class="hover:text-gray-300"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://youtube.com/@dewcoders" target="_blank" title="YouTube" class="hover:text-gray-300"><i class="fab fa-youtube"></i></a>
+      <a href="https://facebook.com" target="_blank" title="Facebook" class="hover:text-gray-300"><i class="fab fa-facebook"></i></a>
+      <a href="https://instagram.com" target="_blank" title="Instagram" class="hover:text-gray-300"><i class="fab fa-instagram"></i></a>
+      <a href="https://twitter.com" target="_blank" title="Twitter" class="hover:text-gray-300"><i class="fab fa-twitter"></i></a>
+      <a href="mailto:hansadewminalk@gmail.com" title="Email" class="hover:text-gray-300"><i class="fas fa-envelope"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const navButtons = document.getElementById("navButtons");
+    const nameInput = document.getElementById("username");
+    const messageInput = document.getElementById("message");
+    const sendButton = document.querySelector('form#commentForm button[type="submit"]');
+    const commentList = document.getElementById("commentList");
+    const loadMoreBtn = document.getElementById("loadMoreBtn");
+
+    function renderNav() {
+      const user = JSON.parse(localStorage.getItem("user"));
+      navButtons.innerHTML = "";
+      if (user) {
+        const logoutBtn = document.createElement("button");
+        logoutBtn.className = "bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded";
+        logoutBtn.innerText = "Logout";
+        logoutBtn.onclick = () => {
+          localStorage.removeItem("user");
+          location.reload();
+        };
+        navButtons.appendChild(logoutBtn);
+      } else {
+        const loginLink = document.createElement("a");
+        loginLink.href = "/login";
+        loginLink.className = "bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white px-4 py-1 rounded inline-block";
+        loginLink.innerText = "Login";
+        navButtons.appendChild(loginLink);
+      }
+    }
+
+    async function fetchBotCount() {
+      try {
+        const res = await fetch("/api/bot-count");
+        const data = await res.json();
+        document.getElementById("botCount").innerText = `🟢 Currently deployed bots: ${data.count}`;
+      } catch (e) {
+        document.getElementById("botCount").innerText = "⚠️ Unable to fetch bot count.";
+      }
+    }
+
+    function timeAgo(dateString) {
+      const seconds = Math.floor((new Date() - new Date(dateString)) / 1000);
+      const intervals = { year: 31536000, month: 2592000, week: 604800, day: 86400, hour: 3600, minute: 60, second: 1 };
+      for (let key in intervals) {
+        const interval = Math.floor(seconds / intervals[key]);
+        if (interval > 0) return `${interval} ${key}${interval > 1 ? "s" : ""} ago`;
+      }
+      return "Just now";
+    }
+
+    let allComments = [];
+    let currentIndex = 0;
+    const PAGE_SIZE = 10;
+
+    async function loadComments() {
+      try {
+        const res = await fetch("/api/comments");
+        allComments = await res.json();
+        currentIndex = 0;
+        renderCommentsPage();
+      } catch (e) {
+        console.error("Failed to load comments:", e);
+      }
+    }
+
+    function renderCommentsPage() {
+      commentList.innerHTML = "";
+      const currentUser = localStorage.getItem("username");
+      const slice = allComments.slice(-currentIndex - PAGE_SIZE, allComments.length - currentIndex);
+      slice.reverse().forEach(c => {
+        const isMine = c.name === currentUser;
+        const alignment = isMine ? "self-end bg-[var(--primary)] text-white" : "self-start bg-green-100 text-gray-900";
+        const nameColor = isMine ? "text-white" : "text-[var(--primary-dark)]";
+        const li = document.createElement("li");
+        li.className = `max-w-[80%] rounded-xl p-4 shadow text-sm relative ${alignment}`;
+        li.innerHTML = `
+          <div class="font-bold ${nameColor} mb-1">${escapeHtml(c.name)}</div>
+          <div class="whitespace-pre-wrap">${escapeHtml(c.message)}</div>
+          <div class="text-[11px] ${isMine ? 'text-green-100' : 'text-gray-500'} text-right mt-2">${timeAgo(c.timestamp)}</div>
+        `;
+        commentList.appendChild(li);
+      });
+      loadMoreBtn.style.display = currentIndex + PAGE_SIZE >= allComments.length ? "none" : "inline-block";
+    }
+
+    loadMoreBtn.addEventListener("click", () => {
+      currentIndex += PAGE_SIZE;
+      renderCommentsPage();
+    });
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    nameInput.addEventListener("input", () => {
+      const name = nameInput.value.trim();
+      messageInput.disabled = !name;
+      sendButton.disabled = !name || messageInput.value.trim().length === 0;
+      localStorage.setItem("username", name);
+    });
+
+    messageInput.addEventListener("input", () => {
+      sendButton.disabled = !(messageInput.value.trim().length > 0 && nameInput.value.trim().length > 0);
+    });
+
+    document.getElementById("commentForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      const name = nameInput.value.trim();
+      const message = messageInput.value.trim();
+      if (!name || !message) return;
+      sendButton.disabled = true;
+      await fetch("/api/comments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, message })
+      });
+      messageInput.value = "";
+      sendButton.disabled = false;
+      messageInput.focus();
+      loadComments();
+    });
+
+    renderNav();
+    fetchBotCount();
+    setInterval(fetchBotCount, 5000);
+    loadComments();
+  </script>
+</body>
+</html>
