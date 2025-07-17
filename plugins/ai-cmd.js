@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { cmd } = require('../lib/command');
-const api = require('../lib/DEW-MD/api');
+const api = require('../lib/SP-MD/api');
 const bot = require('../lib/bot')
 // FluxAI image generation
 cmd({
