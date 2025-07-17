@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bot Dashboard Login | DEW-MD WhatsApp Bot</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Login to your DEW-MD WhatsApp Bot Dashboard. Secure access using your bot number. Fast, simple, and reliable WhatsApp bot deployment." />
+  <meta name="keywords" content="WhatsApp Bot Login, Bot Dashboard, WhatsApp Automation, DEW-MD" />
+  <meta name="author" content="Hansa Dewmina" />
+
+  <!-- Open Graph for Social Media -->
+  <meta property="og:title" content="Login | DEW-MD Bot Dashboard" />
+  <meta property="og:description" content="Enter your bot number to access the DEW-MD auto-deploy dashboard for WhatsApp bots." />
+  <meta property="og:image" content="https://dewcoders.pages.dev/favicon.png" />
+  <meta property="og:url" content="https://dew-md.up.railway.app/login" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bot Dashboard Login | DEW-MD" />
+  <meta name="twitter:description" content="Login securely to manage and deploy your WhatsApp bot." />
+  <meta name="twitter:image" content="https://dewcoders.pages.dev/favicon.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://dewcoders.pages.dev/favicon.png" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-50 flex items-center justify-center min-h-screen font-sans">
+  <div class="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
+    <h1 class="text-3xl font-bold text-green-700 mb-6 text-center">🔐 Bot Dashboard Login</h1>
+    <form id="loginForm" class="space-y-4">
+      <label class="block text-gray-700 font-semibold">WhatsApp Bot Number</label>
+          <input type="tel" name="number"
+                 pattern="[1-9][0-9]{9,14}"
+                 inputmode="numeric"
+                 class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-4 focus:ring-[var(--primary)] transition"
+                 placeholder="e.g. 94712345678"
+                 required
+                 title="Enter a valid WhatsApp number (10–15 digits, no + sign)" />
+
+      <button
+        type="submit"
+        class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-lg transition"
+      >
+        Login
+      </button>
+      <p id="errorMsg" class="text-red-600 text-center mt-2 hidden"></p>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('errorMsg');
+
+    const numberInput = document.querySelector('input[name="number"]');
+  numberInput.addEventListener('input', function () {
+    this.value = this.value.replace(/\D/g, '');
+    const isValid = /^[1-9][0-9]{9,14}$/.test(this.value);
+    this.setCustomValidity(isValid ? "" : "Enter a valid WhatsApp number (10–15 digits, no +, no leading zero).");
+  });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMsg.classList.add('hidden');
+      const number = form.number.value.trim();
+
+      if (!number) {
+        errorMsg.textContent = "Please enter your WhatsApp bot number.";
+        errorMsg.classList.remove('hidden');
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/bots/${number}`);
+        if (!res.ok) throw new Error('Bot not found');
+        // Redirect to dashboard with number param
+        window.location.href = `/dashboard?number=${encodeURIComponent(number)}`;
+      } catch {
+        errorMsg.textContent = "Bot not found. Please check your number.";
+        errorMsg.classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
