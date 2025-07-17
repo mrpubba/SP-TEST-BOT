@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Auto Deploy WhatsApp Bot | DEW-MD</title>
+
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="Auto Deploy WhatsApp Bot | DEW-MD" />
+  <meta name="description" content="Configure and auto-deploy your WhatsApp bot using session ID and custom settings like auto-reply, anti-link, auto-react, and more." />
+  <meta name="keywords" content="WhatsApp Bot, Auto Deploy, Session ID, Bot Configuration, DEW-MD, PM2 Deploy, WhatsApp Automation, Auto Reply, Anti Link, Bot Settings" />
+  <meta name="author" content="Hansa Dewmina" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="English" />
+  <meta name="revisit-after" content="7 days" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://dew-md.up.railway.app/deploy" />
+  <meta property="og:title" content="Auto Deploy WhatsApp Bot | DEW-MD" />
+  <meta property="og:description" content="Instantly deploy your WhatsApp bot with just a session ID and one click. Includes rich configuration options." />
+  <meta property="og:image" content="https://dew-md.up.railway.app/favicon.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://dew-md.up.railway.app/deploy" />
+  <meta name="twitter:title" content="Auto Deploy WhatsApp Bot | DEW-MD" />
+  <meta name="twitter:description" content="Use the DEW-MD dashboard to configure and deploy your WhatsApp bot instantly with session ID support." />
+  <meta name="twitter:image" content="https://dewcoders.pages.dev/favicon.png" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://dew-md.up.railway.app/deploy" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://dewcoders.pages.dev/favicon.png" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --primary: #25D366;
+      --primary-dark: #128C7E;
+      --secondary: #075E54;
+      --white: #ffffff;
+      --gray-50: #f0f2f5;
+      --gray-900: #111827;
+    }
+  </style>
+
+  <!-- Structured Data JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "DEW-MD WhatsApp Bot Auto Deploy",
+    "url": "https://dew-md.up.railway.app/deploy",
+    "logo": "https://dewcoders.pages.dev/favicon.png",
+    "description": "Configure and auto-deploy your WhatsApp bot with session ID and custom settings including auto-reply, anti-link, auto-react, and more.",
+    "applicationCategory": "CommunicationApplication",
+    "operatingSystem": "Web",
+    "author": {
+      "@type": "Person",
+      "name": "Hansa Dewmina",
+      "url": "https://github.com/hansa-dewmina"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+  </script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-white py-6 shadow-md">
+    <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-3xl font-extrabold tracking-wide">DEW-MD</h1>
+      <nav class="space-x-4 text-sm" id="navButtons"></nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-grow flex items-center justify-center p-4">
+    <div class="bg-white shadow-2xl rounded-2xl p-10 w-full max-w-lg">
+
+      <h2 class="text-3xl font-extrabold mb-8 text-[var(--primary-dark)] text-center">WhatsApp Bot Configuration</h2>
+
+      <form id="botForm" class="space-y-6">
+        <div>
+          <label class="block text-sm font-semibold mb-1 text-gray-700">WhatsApp Number</label>
+          <input type="tel" name="number"
+                 pattern="[1-9][0-9]{9,14}"
+                 inputmode="numeric"
+                 class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-4 focus:ring-[var(--primary)] transition"
+                 placeholder="e.g. 94712345678"
+                 required
+                 title="Enter a valid WhatsApp number (10–15 digits, no + sign)" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1 text-gray-700">Owner Name</label>
+          <input type="text" name="owner" 
+                 class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-4 focus:ring-[var(--primary)] transition" 
+                 placeholder="Owner's Name" required />
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1 text-gray-700">Session ID</label>
+          <input type="text" name="session" 
+                 class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-4 focus:ring-[var(--primary)] transition" 
+                 placeholder="Your session ID" required />
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1 text-gray-700">Prefix</label>
+          <input type="text" name="prefix" 
+                 pattern="^[^a-zA-Z0-9\s]{1}$"
+                 maxlength="1"
+                 title="Only one symbol allowed (e.g. ., /, !, # — no letters, numbers, spaces)"
+                 class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-4 focus:ring-[var(--primary)] transition"
+                 placeholder="e.g. ." required />
+        </div>
+
+        <div>
+  <label class="block text-sm font-semibold mb-1 text-gray-700">Bot Mode</label>
+  <select name="mode" required
+          class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-4 focus:ring-[var(--primary)] transition">
+    <option value="" disabled selected>Select a mode</option>
+    <option value="inbox">Inbox Only</option>
+    <option value="groups">Groups Only</option>
+    <option value="private">Private Mode</option>
+    <option value="public">Public Mode</option>
+  </select>
+</div>
+
+<div>
+  <label class="block text-sm font-semibold mb-1 text-gray-700">Auto React Emoji</label>
+  <input type="text" name="AutoReactEmoji"
+         maxlength="2"
+         pattern="[\u{1F300}-\u{1FAFF}]|[\u{1F600}-\u{1F64F}]|[\u{2700}-\u{27BF}]"
+         class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-4 focus:ring-[var(--primary)] transition"
+         placeholder="Enter emoji like ❤️ 😂 🔥"
+         title="Enter a single emoji only"
+         />
+</div>
+
+<div>
+  <label class="block text-sm font-semibold mb-1 text-gray-700">Status React Emoji</label>
+  <input type="text" name="statusReactEmoji"
+         maxlength="2"
+         pattern="[\u{1F300}-\u{1FAFF}]|[\u{1F600}-\u{1F64F}]|[\u{2700}-\u{27BF}]"
+         class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-4 focus:ring-[var(--primary)] transition"
+         placeholder="Enter emoji like ❤️ 😂 🔥"
+         title="Enter a single emoji only"
+         />
+</div>
+        <div class="grid grid-cols-2 gap-4 text-gray-800">
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" name="autoReply" class="form-checkbox h-5 w-5 text-[var(--primary)] transition" />
+            <span>Auto Reply</span>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" name="autoVoice" class="form-checkbox h-5 w-5 text-[var(--primary)] transition" />
+            <span>Auto Voice</span>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" name="autoRec" class="form-checkbox h-5 w-5 text-[var(--primary)] transition" />
+            <span>Auto Recode</span>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" name="autoReact" class="form-checkbox h-5 w-5 text-[var(--primary)] transition" />
+            <span>Auto React</span>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" name="autoBio" class="form-checkbox h-5 w-5 text-[var(--primary)] transition" />
+            <span>Auto Bio</span>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" name="autoType" class="form-checkbox h-5 w-5 text-[var(--primary)] transition" />
+            <span>Auto Type</span>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" name="statusView" class="form-checkbox h-5 w-5 text-[var(--primary)] transition" />
+            <span>Status View</span>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" name="statusReact" class="form-checkbox h-5 w-5 text-[var(--primary)] transition" />
+            <span>Status React</span>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" name="statusReply" class="form-checkbox h-5 w-5 text-[var(--primary)] transition" />
+            <span>Status Reply</span>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" name="sendWelcome" class="form-checkbox h-5 w-5 text-[var(--primary)] transition" />
+            <span>Send welcome</span>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" name="readCmd" class="form-checkbox h-5 w-5 text-[var(--primary)] transition" />
+            <span>Read CMD</span>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" name="online" class="form-checkbox h-5 w-5 text-[var(--primary)] transition" />
+            <span>Always Online</span>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" name="autoBlock" class="form-checkbox h-5 w-5 text-[var(--primary)] transition" />
+            <span>Auto Block</span>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" name="antiLink" class="form-checkbox h-5 w-5 text-[var(--primary)] transition" />
+            <span>Anti Link</span>
+          </label>
+
+           <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" name="antiBad" class="form-checkbox h-5 w-5 text-[var(--primary)] transition" />
+            <span>Anti Bad</span>
+          </label>
+
+        </div>
+
+        <button type="submit" 
+                class="w-full bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white font-extrabold py-3 rounded-xl shadow-lg transition">
+          Deploy Bot
+        </button>
+
+        <div id="statusArea" class="hidden mt-6 text-center text-[var(--primary-dark)] font-semibold">
+          <div class="flex items-center justify-center space-x-3">
+            <svg class="animate-spin h-6 w-6 text-[var(--primary)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+            </svg>
+            <span id="statusText">Deploying bot...</span>
+          </div>
+        </div>
+      </form>
+
+      <div class="mt-8 flex justify-between items-center">
+        <div id="responseMessage" class="text-sm text-gray-600 flex-1"></div>
+        <button id="backBtn" class="ml-4 bg-gray-300 hover:bg-gray-400 text-gray-800 px-5 py-2 rounded-lg shadow transition">← Back</button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Coder Profile Section -->
+  <section class="max-w-3xl mx-auto bg-white shadow-md p-8 mt-20 rounded-2xl text-center">
+    <img src="https://dewcoders.pages.dev/assets/hansa-dewmina.jpeg" alt="Hansa Dewmina" class="w-28 h-28 rounded-full mx-auto shadow-md border-4 border-[var(--primary)]">
+    <h3 class="text-2xl font-bold mt-4 text-[var(--primary-dark)]">Hansa Dewmina</h3>
+    <p class="text-gray-700">Full Stack Developer | Bot Creator | Founder of Dew Coders LK</p>
+    <div class="flex justify-center space-x-6 mt-4 text-xl">
+      <a href="https://github.com/hansadewmina" target="_blank" title="GitHub" class="hover:text-[var(--primary-dark)]"><i class="fab fa-github"></i></a>
+      <a href="https://wa.me/94701515609" target="_blank" title="WhatsApp" class="hover:text-[var(--primary-dark)]"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://linkedin.com/in/hansadewmina" target="_blank" title="LinkedIn" class="hover:text-[var(--primary-dark)]"><i class="fab fa-linkedin"></i></a>
+      <a href="mailto:hansadewminalk@gmail.com" title="Email" class="hover:text-[var(--primary-dark)]"><i class="fas fa-envelope"></i></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-white py-8 mt-20 text-center rounded-t-lg shadow-inner">
+    <p class="text-sm">&copy; <span id="year"></span> | Bot Gpt by Hansa Dewmina - Dew Coders LK</p>
+    <p class="text-xs mt-1 mb-4">Made for Auto Deploy WhatsApp Bot Systems</p>
+    <div class="flex justify-center space-x-6 text-2xl mt-4">
+      <a href="https://github.com/hansa-dewmina" target="_blank" title="GitHub" class="hover:text-gray-300"><i class="fab fa-github"></i></a>
+      <a href="https://wa.me/94701515609" target="_blank" title="WhatsApp" class="hover:text-gray-300"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://youtube.com/@dewcoders" target="_blank" title="YouTube" class="hover:text-gray-300"><i class="fab fa-youtube"></i></a>
+      <a href="https://facebook.com" target="_blank" title="Facebook" class="hover:text-gray-300"><i class="fab fa-facebook"></i></a>
+      <a href="https://instagram.com" target="_blank" title="Instagram" class="hover:text-gray-300"><i class="fab fa-instagram"></i></a>
+      <a href="https://twitter.com" target="_blank" title="Twitter" class="hover:text-gray-300"><i class="fab fa-twitter"></i></a>
+      <a href="mailto:hansadewminalk@gmail.com" title="Email" class="hover:text-gray-300"><i class="fas fa-envelope"></i></a>
+    </div>
+  </footer>
+
+<script>
+  // Set current year in footer
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const form = document.getElementById('botForm');
+  const responseMsg = document.getElementById('responseMessage');
+  const statusArea = document.getElementById('statusArea');
+  const statusText = document.getElementById('statusText');
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const backBtn = document.getElementById('backBtn');
+
+  const statusReactCheckbox = form.querySelector('input[name="statusReact"]');
+  const emojiPickerWrapper = document.getElementById('emojiPickerWrapper');
+
+  
+
+  statusReactCheckbox.addEventListener('change', () => {
+    emojiPickerWrapper.classList.toggle('hidden', !statusReactCheckbox.checked);
+  });
+
+  const numberInput = document.querySelector('input[name="number"]');
+  numberInput.addEventListener('input', function () {
+    this.value = this.value.replace(/\D/g, '');
+    const isValid = /^[1-9][0-9]{9,14}$/.test(this.value);
+    this.setCustomValidity(isValid ? "" : "Enter a valid WhatsApp number (10–15 digits, no +, no leading zero).");
+  });
+
+  // Enforce only 1 symbol for prefix input
+  const prefixInput = form.querySelector('input[name="prefix"]');
+  prefixInput.addEventListener('input', () => {
+    prefixInput.value = prefixInput.value.replace(/[a-zA-Z0-9\s]/g, '');
+    if (prefixInput.value.length > 1) {
+      prefixInput.value = prefixInput.value.charAt(0);
+    }
+  });
+
+  form.onsubmit = async (e) => {
+    e.preventDefault();
+
+    statusArea.classList.remove('hidden');
+    responseMsg.innerText = '';
+    statusText.innerText = 'Deploying bot...';
+    submitBtn.disabled = true;
+    submitBtn.innerText = 'Deploying...';
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    data.antiLink = !!formData.get('antiLink');
+    data.autoReply = !!formData.get('autoReply');
+    data.autoVoice = !!formData.get('autoVoice');
+    data.autoReact = !!formData.get('autoReact');
+    data.autoType = !!formData.get('autoType');
+    data.statusView = !!formData.get('statusView');
+    data.statusReact = !!formData.get('statusReact');
+    data.statusReply = !!formData.get('statusReply');
+    data.autoBlock = !!formData.get('autoBlock');
+    data.readCmd = !!formData.get('readCmd');
+    data.sendWelcome = !!formData.get('sendWelcome');
+    data.antiBad = !!formData.get('antiBad');
+    data.autoRec = !!formData.get('autoRec');
+    data.autoBio = !!formData.get('autoBio');
+    data.online = !!formData.get('online');
+    data.statusReactEmoji = formData.get('statusReactEmoji') || '💚';
+    data.AutoReactEmoji = formData.get('AutoReactEmoji') || '👍';
+
+
+    try {
+      const res = await fetch('/api/deploy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.text();
+
+      statusText.innerText = '✅ Deployment complete';
+      responseMsg.innerText = result;
+
+      setTimeout(() => {
+        window.location.href = `/dashboard?number=${encodeURIComponent(data.number)}`;
+      }, 2000);
+
+    } catch (err) {
+      statusText.innerText = '❌ Deployment failed';
+      responseMsg.innerText = err.message || 'An error occurred.';
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.innerText = 'Deploy Bot';
+  };
+
+  backBtn.onclick = () => {
+    window.history.back();
+  };
+</script>
+
+</body>
+</html>
