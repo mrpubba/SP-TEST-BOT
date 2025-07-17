@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bot Dashboard | Manage WhatsApp Bot Settings - DEW-MD</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Access and manage your deployed WhatsApp bot settings including auto-reply, anti-link, status controls, and more in the DEW-MD Dashboard." />
+  <meta name="keywords" content="WhatsApp Bot, Bot Dashboard, WhatsApp Automation, Bot Configuration, DEW-MD, PM2, Auto Reply, Anti Link" />
+  <meta name="author" content="Hansa Dewmina" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Bot Dashboard | DEW-MD" />
+  <meta property="og:description" content="Customize and control your WhatsApp bot's behavior using our secure bot dashboard." />
+  <meta property="og:url" content="https://dew-md.up.railway.app/dashboard" />
+  <meta property="og:image" content="https://dewcoders.pages.dev/favicon.png" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bot Dashboard | Manage Your WhatsApp Bot" />
+  <meta name="twitter:description" content="Login and configure your WhatsApp bot with session IDs, automated responses, and advanced tools." />
+  <meta name="twitter:image" content="https://dewcoders.pages.dev/favicon.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://dewcoders.pages.dev/favicon.png" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --primary: #25D366;
+      --primary-dark: #128C7E;
+      --secondary: #075E54;
+      --white: #ffffff;
+      --gray-50: #f0f2f5;
+      --gray-900: #111827;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-white py-6 shadow-md">
+    <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-3xl font-extrabold tracking-wide">DEW MD</h1>
+      <nav class="space-x-4 text-sm" id="navButtons"></nav>
+    </div>
+  </header>
+
+  <div class="min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white shadow-2xl rounded-xl w-full max-w-md p-6 space-y-6">
+
+      <h2 class="text-2xl font-bold text-green-700 text-center">Bot Dashboard</h2>
+
+      <!-- Home Button -->
+      <div class="text-center">
+        <a href="/" class="inline-block mb-4 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold shadow">
+           Home
+        </a>
+      </div>
+
+      <div id="error" class="hidden text-center text-red-600">
+        <p>❌ No bot number provided or bot not found.</p>
+        <a href="/login" class="text-green-600 hover:underline">Go back to Login</a>
+      </div>
+
+      <form id="settingsForm" class="space-y-4 hidden">
+        <div>
+          <label class="block text-sm font-medium">WhatsApp Number</label>
+          <input type="text" name="number" readonly class="w-full px-4 py-2 border rounded-lg bg-gray-100 cursor-not-allowed" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Owner Name</label>
+          <input type="text" name="owner" class="w-full border rounded-lg px-4 py-2" required />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Session ID</label>
+          <input type="text" name="session" class="w-full border rounded-lg px-4 py-2" required />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Prefix</label>
+          <input type="text" name="prefix" class="w-full border rounded-lg px-4 py-2" required />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Bot Mode</label>
+          <select name="mode" class="w-full border rounded-lg px-4 py-2" required>
+            <option value="inbox">Inbox Only</option>
+            <option value="groups">Groups Only</option>
+            <option value="private">Private Mode</option>
+            <option value="public">Public Mode</option>
+          </select>
+        </div>
+<div id="emojiWrapper" class="hidden">
+  <label class="block text-sm font-medium mt-2">Status React Emoji</label>
+  <input type="text"
+         name="statusReactEmoji"
+         maxlength="2"
+         pattern="[\u{1F300}-\u{1FAFF}]|[\u{1F600}-\u{1F64F}]|[\u{2700}-\u{27BF}]"
+         class="w-full px-4 py-2 border rounded-lg"
+         placeholder="Enter emoji like 🔥 ❤️ 😂"
+         title="Enter a single emoji only" />
+</div>
+<div>
+  <label class="block text-sm font-medium mt-2">Auto React Emoji</label>
+  <input type="text"
+         name="AutoReactEmoji"
+         maxlength="2"
+         pattern="[\u{1F300}-\u{1FAFF}]|[\u{1F600}-\u{1F64F}]|[\u{2700}-\u{27BF}]"
+         class="w-full px-4 py-2 border rounded-lg"
+         placeholder="Enter emoji like 🔥 ❤️ 😂"
+         title="Enter a single emoji only" />
+</div>
+
+
+        <div class="grid grid-cols-2 gap-2">
+          <label><input type="checkbox" name="autoReply" /> Auto Reply</label>
+          <label><input type="checkbox" name="autoVoice" /> Auto Voice</label>
+          <label><input type="checkbox" name="autoRec" /> Auto Recode</label>
+          <label><input type="checkbox" name="autoReact" /> Auto React</label>
+          <label><input type="checkbox" name="autoBio" /> Auto Bio</label>
+          <label><input type="checkbox" name="autoType" /> Auto Type</label>
+          <label><input type="checkbox" name="statusView" /> Status View</label>
+          <label><input type="checkbox" name="statusReact" /> Status React</label>
+          <label><input type="checkbox" name="statusReply" /> Status Reply</label>
+          <label><input type="checkbox" name="sendWelcome" /> Send Welcome</label>
+          <label><input type="checkbox" name="readCmd" /> Read Cmd</label>
+          <label><input type="checkbox" name="online" /> Always Online</label>
+          <label><input type="checkbox" name="autoBlock" /> Auto Block</label>
+          <label><input type="checkbox" name="antiLink" /> Anti Link</label>
+          <label><input type="checkbox" name="antiBad" /> Anti Bad</label>
+        </div>
+        
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg">Save Settings</button>
+      </form>
+
+      <div id="statusMessage" class="mt-4 text-sm text-center text-green-600"></div>
+    </div>
+  </div>
+
+    <!-- Coder Profile Section -->
+<section class="max-w-3xl mx-auto bg-white shadow-md p-8 mt-20 rounded-2xl text-center">
+  <img src="https://dewcoders.pages.dev/assets/hansa-dewmina.jpeg" alt="Hansa Dewmina" class="w-28 h-28 rounded-full mx-auto shadow-md border-4 border-[var(--primary)]">
+  <h3 class="text-2xl font-bold mt-4 text-[var(--primary-dark)]">Hansa Dewmina</h3>
+  <p class="text-gray-700">Full Stack Developer | Bot Creator | Founder of Dew Coders LK</p>
+  <div class="flex justify-center space-x-6 mt-4 text-xl">
+    <a href="https://github.com/hansa-dewmina" target="_blank" title="GitHub" class="hover:text-[var(--primary-dark)]"><i class="fab fa-github"></i></a>
+    <a href="https://wa.me/94701515609" target="_blank" title="WhatsApp" class="hover:text-[var(--primary-dark)]"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://linkedin.com/in/hansadewmina" target="_blank" title="LinkedIn" class="hover:text-[var(--primary-dark)]"><i class="fab fa-linkedin"></i></a>
+    <a href="mailto:hansadewminalk@gmail.com" title="Email" class="hover:text-[var(--primary-dark)]"><i class="fas fa-envelope"></i></a>
+  </div>
+</section>
+
+<!-- Place this code right before the footer in your HTML file -->
+
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-white py-8 mt-20 text-center rounded-t-lg shadow-inner">
+    <p class="text-sm">&copy; <span id="year"></span> | Bot Gpt by Hansa Dewmina - Dew Coders LK</p>
+    <p class="text-xs mt-1 mb-4">Made for Auto Deploy WhatsApp Bot Systems</p>
+    <div class="flex justify-center space-x-6 text-2xl mt-4">
+      <a href="https://github.com/hansa-dewmina" target="_blank" title="GitHub" class="hover:text-gray-300"><i class="fab fa-github"></i></a>
+      <a href="https://wa.me/94701515609" target="_blank" title="WhatsApp" class="hover:text-gray-300"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://youtube.com/@dewcoders" target="_blank" title="YouTube" class="hover:text-gray-300"><i class="fab fa-youtube"></i></a>
+      <a href="https://facebook.com" target="_blank" title="Facebook" class="hover:text-gray-300"><i class="fab fa-facebook"></i></a>
+      <a href="https://instagram.com" target="_blank" title="Instagram" class="hover:text-gray-300"><i class="fab fa-instagram"></i></a>
+      <a href="https://twitter.com" target="_blank" title="Twitter" class="hover:text-gray-300"><i class="fab fa-twitter"></i></a>
+      <a href="mailto:hansadewmina4@gmail.com" title="Email" class="hover:text-gray-300"><i class="fas fa-envelope"></i></a>
+    </div>
+  </footer>
+
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  const settingsForm = document.getElementById('settingsForm');
+  const errorDiv = document.getElementById('error');
+  const statusMessage = document.getElementById('statusMessage');
+
+  const statusReactCheckbox = settingsForm.elements['statusReact'];
+  const emojiWrapper = document.getElementById('emojiWrapper');
+
+  statusReactCheckbox.addEventListener('change', () => {
+    emojiWrapper.classList.toggle('hidden', !statusReactCheckbox.checked);
+  });
+
+
+  const botNumber = getQueryParam('number');
+
+  if (!botNumber) {
+    errorDiv.classList.remove('hidden');
+    settingsForm.classList.add('hidden');
+  } else {
+    // Load bot data
+    fetch(`/api/bots/${botNumber}`)
+      .then(res => {
+        if (!res.ok) throw new Error('Bot not found');
+        return res.json();
+      })
+      .then(bot => {
+        errorDiv.classList.add('hidden');
+        settingsForm.classList.remove('hidden');
+        
+
+        // Fill form inputs
+        settingsForm.number.value = bot.number || botNumber;
+        const keys = [
+          'owner', 'session', 'prefix', 'mode', 'online',
+          'autoReply', 'autoReact', 'autoVoice', 'autoType', 'readCmd', 'autoBlock',
+          'antiLink', 'statusView', 'statusReact', 'statusReply', 'sendWelcome','antiBad','autoRec','autoBio','statusReactEmoji', 'AutoReactEmoji'
+        ];
+
+       keys.forEach(key => {
+  const input = settingsForm.elements[key];
+  if (!input) return;
+  if (input.type === 'checkbox') input.checked = bot[key] === true || bot[key] === 'true';
+  else input.value = bot[key] || '';
+});
+
+// Show emoji input if statusReact is enabled
+const emojiInput = settingsForm.elements['statusReactEmoji'];
+const emojiWrapper = document.getElementById('emojiWrapper');
+const statusReactEnabled = settingsForm.elements['statusReact'].checked;
+
+emojiWrapper.classList.toggle('hidden', !statusReactEnabled);
+if (bot.statusReactEmoji) emojiInput.value = bot.statusReactEmoji;
+if (bot.AutoReactEmoji) emojiInput.value = bot.AutoReactEmoji;
+
+        
+      })
+      
+      .catch(() => {
+        errorDiv.classList.remove('hidden');
+        settingsForm.classList.add('hidden');
+      });
+  }
+
+  // Save settings handler
+  settingsForm.onsubmit = async (e) => {
+    e.preventDefault();
+    statusMessage.textContent = 'Saving...';
+
+    const formData = new FormData(settingsForm);
+    const data = Object.fromEntries(formData.entries());
+
+    // Correctly handle checkboxes and mode separately:
+    const checkboxKeys = ['autoReply','online','autoReact','autoVoice','autoType','antiLink','statusView','statusReact','statusReply','autoBlock','readCmd','sendWelcome','antiBad','autoRec','autoBio','statusReactEmoji', 'AutoReactEmoji'];
+    checkboxKeys.forEach(k => {
+      data[k] = settingsForm.elements[k].checked;
+    });
+
+    // mode should be string value from select, not a checkbox
+    data.mode = formData.get('mode');
+    data.statusReactEmoji = settingsForm.elements['statusReactEmoji'].value || '';
+    data.AutoReactEmoji = settingsForm.elements['AutoReactEmoji'].value || '';
+    data.number = botNumber;
+
+    try {
+      const res = await fetch('/api/deploy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error('Failed to save');
+      const result = await res.text();
+      statusMessage.textContent = result;
+    } catch {
+      statusMessage.textContent = '❌ Failed to save settings.';
+    }
+  };
+</script>
+</body>
+</html>
